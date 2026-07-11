@@ -51,6 +51,8 @@
     grim
     slurp
     wl-clipboard
+    ripgrep
+    fd
     afetch
   ];
 
