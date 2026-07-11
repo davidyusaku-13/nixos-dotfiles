@@ -27,9 +27,11 @@
     xwayland.enable = true;
   };
 
+  programs.zsh.enable = true;
   users.users.david = {
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "input" "networkmanager" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
       tree
     ];
@@ -37,7 +39,7 @@
 
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
-    vim
+    neovim
     wget
     foot
     waybar
