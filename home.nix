@@ -21,9 +21,11 @@
         exec start-hyprland
       fi
     '';
-    initContent = ''
-      fastfetch
-    '';
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "sudo" ];
+      theme = "robbyrussell";
+    };
   };
 
 

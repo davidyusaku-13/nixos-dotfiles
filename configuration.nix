@@ -79,7 +79,6 @@
     libreoffice
     wayvnc
     uv
-    fastfetch
   ];
 
   fonts.packages = with pkgs; [
