@@ -73,6 +73,8 @@
     go
     nodejs
     bun
+    imv
+    libreoffice
     uv
     fastfetch
   ];
