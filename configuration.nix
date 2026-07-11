@@ -17,6 +17,11 @@
 
   time.timeZone = "Asia/Jakarta";
 
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = true;
+  };
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;
