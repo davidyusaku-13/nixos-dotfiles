@@ -14,7 +14,7 @@
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "Asia/Jakarta";
 
   programs.hyprland = {
     enable = true;
@@ -40,6 +40,6 @@
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 
 }

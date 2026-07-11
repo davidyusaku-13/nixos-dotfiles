@@ -3,7 +3,7 @@
 {
   home.username = "david";
   home.homeDirectory = "/home/david";
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
   programs.git.enable = true;
   programs.bash = {
     enable = true;
