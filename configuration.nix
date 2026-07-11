@@ -75,6 +75,7 @@
     bun
     imv
     libreoffice
+    rustdesk
     uv
     fastfetch
   ];
