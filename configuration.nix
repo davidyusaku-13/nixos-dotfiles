@@ -17,6 +17,14 @@
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Jakarta";
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
 
   services.openssh = {
     enable = true;
@@ -53,6 +61,7 @@
     wl-clipboard
     ripgrep
     fd
+    brightnessctl
     afetch
   ];
 
