@@ -17,9 +17,18 @@
     '';
   };
 
-  home.file.".config/hypr".source = ./config/hypr;
-  home.file.".config/waybar".source = ./config/waybar;
-  home.file.".config/foot".source = ./config/foot;
+  home.file.".config/hypr" = {
+    source = ./config/hypr;
+    force = true;
+  };
+  home.file.".config/waybar" = {
+    source = ./config/waybar;
+    force = true;
+  };
+  home.file.".config/foot" = {
+    source = ./config/foot;
+    force = true;
+  };
 
   home.packages = with pkgs; [
     (pkgs.writeShellApplication {
