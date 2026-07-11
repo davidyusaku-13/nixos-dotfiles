@@ -30,7 +30,15 @@
     enable = true;
     settings.PasswordAuthentication = true;
   };
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "openssl-1.1.1w"
+    ];
+    problems.handlers = {
+      sublimetext4.broken = "warn";
+    };
+  };
 
   programs.hyprland = {
     enable = true;
