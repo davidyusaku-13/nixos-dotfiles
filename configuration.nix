@@ -58,6 +58,8 @@
 
   fonts.packages = with pkgs; [
     font-awesome
+    nerd-fonts.iosevka
+    nerd-fonts.jetbrains-mono
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
