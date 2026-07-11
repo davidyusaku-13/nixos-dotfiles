@@ -1,4 +1,5 @@
 return {
+    "neovim/nvim-lspconfig",
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
     "hrsh7th/nvim-cmp",

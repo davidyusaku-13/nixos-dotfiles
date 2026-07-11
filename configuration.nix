@@ -62,6 +62,9 @@
     ripgrep
     fd
     brightnessctl
+    gopls
+    svelte-language-server
+    astro-language-server
     waypaper
     swayosd
     fastfetch
