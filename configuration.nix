@@ -15,6 +15,8 @@
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  services.tailscale.enable = true;
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   time.timeZone = "Asia/Jakarta";
   security.rtkit.enable = true;
@@ -75,7 +77,7 @@
     bun
     imv
     libreoffice
-    rustdesk
+    wayvnc
     uv
     fastfetch
   ];
