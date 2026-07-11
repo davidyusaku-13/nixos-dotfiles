@@ -63,6 +63,7 @@
     fd
     brightnessctl
     waypaper
+    swayosd
     fastfetch
   ];
 
