@@ -89,7 +89,7 @@
   ];
 
   stylix.enable = true;
-  stylix.image = ./config/wallpaper.png;
+  stylix.image = ./config/hypr/wallpaper.png;
   stylix.polarity = "dark";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
