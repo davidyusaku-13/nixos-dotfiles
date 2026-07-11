@@ -9,6 +9,8 @@
     enable = true;
     shellAliases = {
       btw = "echo i use nixos, btw";
+      rb = "sudo nixos-rebuild switch --flake ~/nixos-dotfiles#nixos-btw";
+      sr = "sudo reboot";
     };
     profileExtra = ''
       if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
