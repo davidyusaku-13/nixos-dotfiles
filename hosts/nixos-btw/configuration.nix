@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ self, config, lib, pkgs, ... }:
 
 {
   imports = [
       ./hardware-configuration.nix
-      ../../modules/system/audio.nix
-      ../../modules/system/desktop.nix
+      (self + "/modules/system/audio.nix")
+      (self + "/modules/system/desktop.nix")
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -49,7 +49,7 @@
   ];
 
   stylix.enable = true;
-  stylix.image = ../../config/hypr/wallpaper.png;
+  stylix.image = self + "/config/hypr/wallpaper.png";
   stylix.polarity = "dark";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

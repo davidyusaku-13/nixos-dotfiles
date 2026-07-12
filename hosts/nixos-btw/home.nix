@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ self, config, pkgs, ... }:
 
 {
   home.username = "david";
@@ -40,11 +40,11 @@
   programs.wofi.enable = true;
 
   xdg.configFile = {
-    "hypr".source = ../../config/hypr;
-    "waybar".source = ../../config/waybar;
-    "alacritty".source = ../../config/alacritty;
-    "nvim".source = ../../config/nvim;
-    "wofi".source = ../../config/wofi;
+    "hypr".source = self + "/config/hypr";
+    "waybar".source = self + "/config/waybar";
+    "alacritty".source = self + "/config/alacritty";
+    "nvim".source = self + "/config/nvim";
+    "wofi".source = self + "/config/wofi";
   };
 
   home.packages = with pkgs; [

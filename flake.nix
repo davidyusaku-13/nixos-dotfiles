@@ -16,6 +16,7 @@
   outputs = { self, nixpkgs, home-manager, stylix, ... }: {
     nixosConfigurations.nixos-btw = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit self inputs; };
       modules = [
         ./hosts/nixos-btw/configuration.nix
         stylix.nixosModules.stylix
@@ -23,6 +24,7 @@
         {
           home-manager = {
             useGlobalPkgs = true;
+            extraSpecialArgs = { inherit self inputs; };
             useUserPackages = true;
             users.david = import ./hosts/nixos-btw/home.nix;
             backupFileExtension = "backup";
