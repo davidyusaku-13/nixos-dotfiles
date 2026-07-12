@@ -42,6 +42,29 @@ if [ "$CONFIRM" != "YES" ]; then
   exit 1
 fi
 
+echo ""
+echo "--- Set Passwords ---"
+
+read -s -p "Enter password for 'root': " ROOT_PASS
+echo ""
+read -s -p "Confirm password for 'root': " ROOT_PASS_CONFIRM
+echo ""
+if [ "$ROOT_PASS" != "$ROOT_PASS_CONFIRM" ]; then
+  echo "Root passwords do not match. Aborting."
+  exit 1
+fi
+
+read -s -p "Enter password for 'david': " DAVID_PASS
+echo ""
+read -s -p "Confirm password for 'david': " DAVID_PASS_CONFIRM
+echo ""
+if [ "$DAVID_PASS" != "$DAVID_PASS_CONFIRM" ]; then
+  echo "User passwords do not match. Aborting."
+  exit 1
+fi
+
+echo ""
+
 # Determine partition names (nvme drives have a 'p' before the partition number)
 if [[ "$DRIVE" == *nvme* ]] || [[ "$DRIVE" == *mmcblk* ]]; then
   PART_BOOT="${DRIVE}p1"
@@ -77,13 +100,13 @@ git clone https://github.com/davidyusaku-13/nixos-dotfiles.git /mnt/etc/nixos-do
 echo "==> Injecting hardware config..."
 cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos-dotfiles/hosts/nixos-btw/
 cd /mnt/etc/nixos-dotfiles
-git add hosts/nixos-btw/hardware-configuration.nix
-
 echo "==> Installing NixOS..."
-# We pass --no-root-passwd so it prompts you interactively for the password at the end
-nixos-install --flake /mnt/etc/nixos-dotfiles#nixos-btw
+# Run install without prompting for root password
+nixos-install --flake /mnt/etc/nixos-dotfiles#nixos-btw --no-root-passwd
 
-echo "==> Setting password for user 'david'..."
-nixos-enter --root /mnt -c 'passwd david'
+echo "==> Setting passwords..."
+nixos-enter --root /mnt -c "echo 'root:$ROOT_PASS' | chpasswd"
+nixos-enter --root /mnt -c "echo 'david:$DAVID_PASS' | chpasswd"
 
 echo "==> Done! You can now type 'reboot'."
+
