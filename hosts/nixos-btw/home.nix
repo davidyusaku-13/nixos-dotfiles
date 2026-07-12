@@ -4,7 +4,11 @@
   home.username = "david";
   home.homeDirectory = "/home/david";
   home.stateVersion = "26.05";
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "David Yusaku";
+    userEmail = "davidyusaku13@gmail.com";
+  };
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -30,10 +34,18 @@
   };
 
 
-  home.file = builtins.listToAttrs (map (app: {
-    name = ".config/${app}";
-    value = { source = ./. + "/config/${app}"; force = true; };
-  }) [ "hypr" "waybar" "alacritty" "nvim" "wofi" ]);
+  programs.alacritty.enable = true;
+  programs.waybar.enable = true;
+  programs.neovim.enable = true;
+  programs.wofi.enable = true;
+
+  xdg.configFile = {
+    "hypr".source = ../../config/hypr;
+    "waybar".source = ../../config/waybar;
+    "alacritty".source = ../../config/alacritty;
+    "nvim".source = ../../config/nvim;
+    "wofi".source = ../../config/wofi;
+  };
 
   home.packages = with pkgs; [
     (pkgs.writeShellApplication {
@@ -44,5 +56,24 @@
       ];
       text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
     })
+    kitty
+    kdePackages.dolphin
+    hyprpaper
+    grim
+    slurp
+    wl-clipboard
+    brightnessctl
+    gopls
+    svelte-language-server
+    astro-language-server
+    waypaper
+    swayosd
+    go
+    nodejs
+    bun
+    imv
+    libreoffice
+    wayvnc
+    uv
   ];
 }

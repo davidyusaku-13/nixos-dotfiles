@@ -17,14 +17,14 @@
     nixosConfigurations.nixos-btw = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./configuration.nix
+        ./hosts/nixos-btw/configuration.nix
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.david = import ./home.nix;
+            users.david = import ./hosts/nixos-btw/home.nix;
             backupFileExtension = "backup";
           };
         }
