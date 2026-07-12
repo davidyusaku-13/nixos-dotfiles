@@ -42,6 +42,9 @@ if [ "$CONFIRM" != "YES" ]; then
   exit 1
 fi
 
+read -p "Enter the primary username [david]: " TARGET_USER
+TARGET_USER=${TARGET_USER:-david}
+
 echo ""
 echo "--- Set Passwords ---"
 
@@ -54,11 +57,11 @@ if [ "$ROOT_PASS" != "$ROOT_PASS_CONFIRM" ]; then
   exit 1
 fi
 
-read -s -p "Enter password for 'david': " DAVID_PASS
+read -s -p "Enter password for '$TARGET_USER': " USER_PASS
 echo ""
-read -s -p "Confirm password for 'david': " DAVID_PASS_CONFIRM
+read -s -p "Confirm password for '$TARGET_USER': " USER_PASS_CONFIRM
 echo ""
-if [ "$DAVID_PASS" != "$DAVID_PASS_CONFIRM" ]; then
+if [ "$USER_PASS" != "$USER_PASS_CONFIRM" ]; then
   echo "User passwords do not match. Aborting."
   exit 1
 fi
@@ -100,13 +103,23 @@ git clone https://github.com/davidyusaku-13/nixos-dotfiles.git /mnt/etc/nixos-do
 echo "==> Injecting hardware config..."
 cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos-dotfiles/hosts/nixos-btw/
 cd /mnt/etc/nixos-dotfiles
+
+echo "==> Configuring username as '$TARGET_USER'..."
+if [ "$TARGET_USER" != "david" ]; then
+  sed -i "s/users\.david =/users\.$TARGET_USER =/g" flake.nix
+  sed -i "s/autologinUser = \"david\"/autologinUser = \"$TARGET_USER\"/g" hosts/nixos-btw/configuration.nix
+  sed -i "s/users\.users\.david =/users\.users\.$TARGET_USER =/g" hosts/nixos-btw/configuration.nix
+  sed -i "s/home\.username = \"david\"/home\.username = \"$TARGET_USER\"/g" hosts/nixos-btw/home.nix
+  sed -i "s/homeDirectory = \"\/home\/david\"/homeDirectory = \"\/home\/$TARGET_USER\"/g" hosts/nixos-btw/home.nix
+fi
+
 echo "==> Installing NixOS..."
 # Run install without prompting for root password
 nixos-install --flake /mnt/etc/nixos-dotfiles#nixos-btw --no-root-passwd
 
 echo "==> Setting passwords..."
 nixos-enter --root /mnt -c "echo 'root:$ROOT_PASS' | chpasswd"
-nixos-enter --root /mnt -c "echo 'david:$DAVID_PASS' | chpasswd"
+nixos-enter --root /mnt -c "echo '$TARGET_USER:$USER_PASS' | chpasswd"
 
 echo "==> Done! You can now type 'reboot'."
 
