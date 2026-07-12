@@ -29,3 +29,46 @@ sudo nixos-rebuild switch --flake ~/nixos-dotfiles#nixos-btw
 *After this initial build, you can simply use the `rb` (rebuild) and `sr` (sudo reboot) aliases.*
 
 > **Warning**: Because this repository uses a single unified `configuration.nix` for all machines, any PC-specific settings (like desktop GPU drivers) will also be applied to your laptop, and vice-versa.
+
+## Bare Metal Installation (From Live USB)
+
+If you are starting from a completely blank drive using the NixOS minimal ISO, follow these steps to deploy this repository directly during installation:
+
+### 1. Partition and Mount
+Identify your drive (`lsblk`) and partition it (e.g., using `cfdisk /dev/vda`).
+Create a 1GB EFI Boot partition and a Linux Filesystem partition for the remainder.
+
+Format and mount the partitions:
+```bash
+mkfs.ext4 -L nixos /dev/vda2
+mkfs.fat -F 32 -n BOOT /dev/vda1
+mount /dev/vda2 /mnt
+mount --mkdir /dev/vda1 /mnt/boot
+```
+
+### 2. Generate Hardware Config
+Scan the hardware of the new machine:
+```bash
+nixos-generate-config --root /mnt
+```
+
+### 3. Clone and Inject
+Clone this repository to a temporary location on the mounted drive, and copy the generated hardware configuration into the host folder:
+```bash
+git clone https://github.com/davidyusaku-13/nixos.git /mnt/etc/nixos-dotfiles
+cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos-dotfiles/hosts/nixos-btw/
+```
+
+### 4. Install
+Run the flake installation:
+```bash
+nixos-install --flake /mnt/etc/nixos-dotfiles#nixos-btw
+```
+*You will be prompted to set the root password.*
+
+### 5. Reboot and Cleanup
+Type `reboot`. Once you log in to your new desktop, move the repository to your home folder and take ownership so your aliases work:
+```bash
+sudo mv /etc/nixos-dotfiles ~/nixos-dotfiles
+sudo chown -R david:users ~/nixos-dotfiles
+```
