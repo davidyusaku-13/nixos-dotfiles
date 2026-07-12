@@ -77,5 +77,6 @@
     libreoffice
     wayvnc
     uv
+    gum
   ];
 }
