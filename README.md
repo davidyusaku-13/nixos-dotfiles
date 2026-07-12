@@ -35,7 +35,7 @@ nixos-generate-config --root /mnt
 Clone this repository to a temporary location on the mounted drive, and copy the generated hardware configuration into the host folder:
 
 ```bash
-git clone https://github.com/davidyusaku-13/nixos.git /mnt/etc/nixos-dotfiles
+git clone https://github.com/davidyusaku-13/nixos-dotfiles.git /mnt/etc/nixos-dotfiles
 cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos-dotfiles/hosts/nixos-btw/
 ```
 
@@ -65,7 +65,7 @@ If you already have NixOS installed and are just cloning this repository to mana
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/davidyusaku-13/nixos.git ~/nixos-dotfiles
+git clone https://github.com/davidyusaku-13/nixos-dotfiles.git ~/nixos-dotfiles
 cd ~/nixos-dotfiles
 ```
 
