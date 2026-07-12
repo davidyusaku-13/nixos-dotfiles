@@ -16,7 +16,7 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
-_The script will prompt you to select the target drive, and at the end it will ask you to set the passwords for `root` and your user `david`._
+_The script will prompt you to select the target drive, configure your username/git settings, and securely set your passwords upfront before installing._
 
 ### 2. Reboot and Cleanup
 
@@ -24,7 +24,7 @@ Type `reboot`. Once you log in to your new desktop, move the repository to your 
 
 ```bash
 sudo mv /etc/nixos-dotfiles ~/nixos-dotfiles
-sudo chown -R david:users ~/nixos-dotfiles
+sudo chown -R $USER:users ~/nixos-dotfiles
 ```
 
 ## 2. Applying to an Existing NixOS System
@@ -56,3 +56,21 @@ sudo nixos-rebuild switch --flake ~/nixos-dotfiles#nixos-btw
 ```
 
 _After this initial build, you can simply use the `rb` (rebuild) and `sr` (sudo reboot) aliases._
+
+## 3. System Maintenance
+
+This repository includes a maintenance script (`update.sh`) that automates syncing, package updates, rebuilding, and garbage collection.
+
+To maintain your system, simply run:
+
+```bash
+cd ~/nixos-dotfiles
+./update.sh
+```
+
+The script will:
+1. `git pull` the latest configuration changes.
+2. Prompt you if you want to update flake inputs (fetch newer packages).
+3. Run `nixos-rebuild switch`.
+4. Automatically commit and push the `flake.lock` file if it changed.
+5. Run Nix garbage collection to clear old boot generations and free up disk space.
