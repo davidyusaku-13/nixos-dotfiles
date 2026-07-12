@@ -11,9 +11,9 @@ If you are starting from a completely blank drive using the NixOS minimal ISO, y
 Run the following commands:
 
 ```bash
-curl -O https://raw.githubusercontent.com/davidyusaku-13/nixos-dotfiles/main/install.sh
-chmod +x install.sh
-sudo ./install.sh
+curl -LO https://github.com/davidyusaku-13/nixos-dotfiles/releases/latest/download/nixos-installer
+chmod +x nixos-installer
+sudo ./nixos-installer
 ```
 
 _The script will prompt you to select the target drive, configure your username/git settings, and securely set your passwords upfront before installing._
